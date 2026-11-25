@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plan de Vida — Evidencia Final</title>
+  <style>
+    /* ============================================================
+       1. RESET Y BASE
+       ============================================================ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-alt: #162032;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.14);
+      --border: #334155;
+      --focus: #facc15;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      line-height: 1.6;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :is(a, button):focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    p,
+    h1, h2, h3, h4, h5, h6 {
+      overflow-wrap: break-word;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    /* ============================================================
+       2. TIPOGRAFÍA FLUIDA Y CONTENEDOR
+       ============================================================ */
+    h1 {
+      font-size: clamp(1.75rem, 4.5vw, 2.85rem);
+      line-height: 1.15;
+    }
+
+    h2 {
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      line-height: 1.2;
+      color: var(--accent);
+    }
+
+    h3 {
+      font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+      line-height: 1.3;
+    }
+
+    p, li, td, th {
+      font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+    }
+
+    .container {
+      width: min(100% - 2rem, 1140px);
+      margin-inline: auto;
+    }
+
+    /* ============================================================
+       3. ENCABEZADO Y NAVEGACIÓN
+       ============================================================ */
+    .site-header {
+      background-color: rgba(30, 41, 59, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      padding-block: 1rem;
+    }
+
+    .header-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .brand-title {
+      color: var(--accent);
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      font-weight: 700;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+    }
+
+    .nav-list a {
+      display: inline-block;
+      padding: 0.35rem 0.65rem;
+      border-radius: 0.5rem;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.92rem;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .nav-list a:hover {
+      background-color: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    /* ============================================================
+       4. SECCIONES Y TARJETAS
+       ============================================================ */
+    main {
+      padding-block: 2rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface-alt) 100%);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.75rem;
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin-top: 0.75rem;
+      max-width: 70ch;
+    }
+
+    .section-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .mission-box {
+      background-color: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      border-radius: 0.65rem;
+      padding: 1rem 1.25rem;
+    }
+
+    .mission-box h3 {
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+
+    .foda-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+      gap: 1rem;
+    }
+
+    .foda-box {
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.1rem;
+    }
+
+    .foda-box h3 {
+      margin-bottom: 0.6rem;
+      color: var(--accent);
+    }
+
+    .bullet-list {
+      list-style: disc;
+      padding-left: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      color: var(--muted);
+    }
+
+    .smart-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: 1rem;
+    }
+
+    .smart-item {
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1rem 1.15rem;
+    }
+
+    .smart-item h3 {
+      font-size: 1rem;
+      color: var(--accent);
+      margin-bottom: 0.35rem;
+    }
+
+    .smart-item p {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    /* Tabla de agenda adaptable */
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border-radius: 0.75rem;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 620px;
+      background-color: var(--bg);
+    }
+
+    th, td {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    th {
+      background-color: var(--surface-alt);
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    td {
+      color: var(--muted);
+    }
+
+    td strong {
+      color: var(--text);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .reflection-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      color: var(--muted);
+      max-width: 75ch;
+    }
+
+    .site-footer {
+      background-color: var(--surface-alt);
+      border-top: 1px solid var(--border);
+      padding-block: 1.25rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 768px) {
+      .header-inner {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .section-card, .hero {
+        padding: 2rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#inicio" class="brand-title">Plan de Vida</a>
+      <nav aria-label="Navegación del plan de vida">
+        <ul class="nav-list">
+          <li><a href="#foda">1. FODA y Misión</a></li>
+          <li><a href="#smart">2. Objetivos SMART</a></li>
+          <li><a href="#relaciones">3. Relaciones Estratégicas</a></li>
+          <li><a href="#reflexion">4. Reflexión Final</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="inicio" class="hero">
+      <h1>Plan de Vida y Crecimiento Personal</h1>
+      <p>
+        Proyecto integrador que reúne mi misión, análisis FODA, ocho objetivos SMART, agenda de relaciones
+        estratégicas y reflexión final del curso en una interfaz adaptable.
+      </p>
+    </section>
+
+    <!-- 1. ANÁLISIS FODA Y MISIÓN -->
+    <section id="foda" class="section-card" aria-labelledby="titulo-foda">
+      <h2 id="titulo-foda">1. Análisis FODA Personal y su Relación con la Misión</h2>
+
+      <div class="mission-box">
+        <h3>Misión Personal</h3>
+        <p>
+          Consolidarme como un diseñador gráfico y creador visual versátil—capaz de unir estética, narrativa y
+          herramientas técnicas como diseño editorial/publicitario, animación, desarrollo web y programación
+          interactiva—para construir proyectos con propósito, crecer profesionalmente y avanzar hacia mi autonomía
+          personal y financiera.
+        </p>
+      </div>
+
+      <div class="foda-grid">
+        <article class="foda-box">
+          <h3>Fortalezas</h3>
+          <ul class="bullet-list">
+            <li>Formación en diseño gráfico con enfoque en composición digital, animación, video y narrativa visual.</li>
+            <li>Facilidad para conectar el diseño con soluciones técnicas prácticas (estructura web, front-end, hojas de cálculo/automatización y prototipado).</li>
+            <li>Disciplina y gusto por organizar procesos, metas y hábitos mediante sistemas claros de seguimiento.</li>
+            <li>Capacidad de adaptación para colaborar en distintos frentes creativos y comerciales.</li>
+          </ul>
+        </article>
+
+        <article class="foda-box">
+          <h3>Oportunidades</h3>
+          <ul class="bullet-list">
+            <li>Alta demanda de contenido visual dinámico, piezas digitales, identidad y experiencias web interactivas para marcas y proyectos independientes.</li>
+            <li>Posibilidad de desarrollar proyectos propios, colaboraciones con colegas y propuestas creativas con sello personal.</li>
+            <li>Crecimiento continuo en herramientas digitales y flujos de trabajo modernos que agilizan la entrega y elevan la calidad.</li>
+          </ul>
+        </article>
+
+        <article class="foda-box">
+          <h3>Debilidades</h3>
+          <ul class="bullet-list">
+            <li>Tendencia a abarcar demasiados frentes o proyectos al mismo tiempo, lo que puede dispersar el enfoque en cierres importantes.</li>
+            <li>Necesidad de mantener límites claros entre tiempo de trabajo/entrega, estudio y descanso para sostener el ritmo a largo plazo.</li>
+            <li>Perfeccionismo o análisis prolongado antes de publicar o dar por cerrado un avance.</li>
+          </ul>
+        </article>
+
+        <article class="foda-box">
+          <h3>Amenazas</h3>
+          <ul class="bullet-list">
+            <li>Cambios rápidos en herramientas, plataformas o dinámicas del mercado creativo que exigen actualización constante.</li>
+            <li>Fluctuaciones en cargas de trabajo, ingresos o tiempos de entrega en proyectos freelance o colaborativos.</li>
+            <li>Distracciones o saturación en etapas de alta exigencia académica y laboral.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="mission-box">
+        <h3>Relación entre el FODA y la Misión</h3>
+        <p>
+          Mi misión busca unir sensibilidad estética y resolución técnica sin perder dirección. Aprovechar mis
+          fortalezas en diseño, animación y organización me permite responder a las oportunidades de crear piezas y
+          experiencias digitales de alto valor. A la par, reconocer mis debilidades—como la dispersión o la
+          sobrecarga—me ayuda a priorizar lo esencial y protegerme frente a amenazas como la saturación o los cambios
+          del entorno, asegurando un crecimiento constante y sostenible.
+        </p>
+      </div>
+    </section>
+
+    <!-- 2. OCHO OBJETIVOS SMART -->
+    <section id="smart" class="section-card" aria-labelledby="titulo-smart">
+      <h2 id="titulo-smart">2. Ocho Objetivos SMART</h2>
+
+      <div class="smart-grid">
+        <article class="smart-item">
+          <h3>1. Conclusión académica</h3>
+          <p>
+            Completar y aprobar los requisitos pendientes de la licenciatura en diseño gráfico al cierre del ciclo
+            escolar actual, entregando cada proyecto con calidad profesional y a tiempo.
+          </p>
+        </article>
+
+        <article class="smart-item">
+          <h3>2. Portafolio y muestra de proyectos</h3>
+          <p>
+            Seleccionar, pulir y publicar al menos 6 piezas o casos destacados (entre diseño, animación, web/interactivo
+            y proyectos creativos) en mi portafolio en línea en los próximos 3 meses.
+          </p>
+        </article>
+
+        <article class="smart-item">
+          <h3>3. Crecimiento en desarrollo e interactividad</h3>
+          <p>
+            Completar y documentar un proyecto interactivo funcional (web o aplicación) aplicando buenas prácticas de
+            estructura, diseño adaptable y programación en los próximos 2 meses.
+          </p>
+        </article>
+
+        <article class="smart-item">
+          <h3>4. Estabilidad e ingresos profesionales</h3>
+          <p>
+            Alcanzar un ingreso mensual constante acorde a mis metas de independencia en los próximos 6 meses,
+            combinando puestos, clientes o proyectos bien cotizados.
+          </p>
+        </article>
+
+        <article class="smart-item">
+          <h3>5. Fondo de transición e independencia</h3>
+          <p>
+            Reunir un ahorro destinado a independencia y gastos básicos en los próximos 6 meses, registrando ingresos y
+            gastos semanalmente sin compras impulsivas.
+          </p>
+        </article>
+
+        <article class="smart-item">
+          <h3>6. Constancia en hábitos y bienestar</h3>
+          <p>
+            Mantener una rutina semanal de al menos 3 sesiones de entrenamiento físico y pausas de descanso/lectura o
+            música durante los próximos 3 meses.
+          </p>
+        </article>
+
+        <article class="smart-item">
+          <h3>7. Dominio de herramientas y flujo de trabajo</h3>
+          <p>
+            Reducir los tiempos de producción y corrección en mis entregas habituales mediante plantillas, organización
+            de archivos y revisiones previas en los próximos 2 meses.
+          </p>
+        </article>
+
+        <article class="smart-item">
+          <h3>8. Red de colaboración profesional</h3>
+          <p>
+            Establecer o fortalecer al menos 4 contactos clave (colegas, colaboradores, mentores o clientes) y concretar
+            al menos 1 colaboración o intercambio de proyectos en los próximos 4 meses.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 3. AGENDA DE RELACIONES ESTRATÉGICAS -->
+    <section id="relaciones" class="section-card" aria-labelledby="titulo-relaciones">
+      <h2 id="titulo-relaciones">3. Agenda de Relaciones Estratégicas</h2>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Contacto / Grupo</th>
+              <th scope="col">Rol o Área</th>
+              <th scope="col">Datos Relevantes</th>
+              <th scope="col">Acciones para Fortalecer el Vínculo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Compañeros y colegas de diseño</strong></td>
+              <td>Diseño gráfico, animación y proyectos en equipo</td>
+              <td>Compañeros de carrera y futuros socios de estudio / WhatsApp y presencial</td>
+              <td>Compartir avances, coordinar entregas conjuntas y mantener diálogo abierto sobre metas a futuro.</td>
+            </tr>
+            <tr>
+              <td><strong>Colaboradores y equipo de trabajo</strong></td>
+              <td>Producción audiovisual, animación y gestión digital</td>
+              <td>Compañeros de proyectos y equipo de trabajo / Correo y mensajería directa</td>
+              <td>Mantener comunicación clara, cumplir acuerdos en tiempo y proponer mejoras visuales o técnicas.</td>
+            </tr>
+            <tr>
+              <td><strong>Clientes y marcas actuales / potenciales</strong></td>
+              <td>Identidad, piezas promocionales, web y contenido</td>
+              <td>Clientes de diseño, impresión, locales y comercio digital / Correo y WhatsApp</td>
+              <td>Entregar propuestas claras, dar seguimiento post-entrega y pedir retroalimentación para futuros encargos.</td>
+            </tr>
+            <tr>
+              <td><strong>Docentes y mentores</strong></td>
+              <td>Orientación académica, crítica visual y profesional</td>
+              <td>Profesores de asignaturas de diseño y proyectos / Correo institucional y sesiones de clase</td>
+              <td>Solicitar retroalimentación específica sobre portafolio y entregas, y mantener registro de recomendaciones.</td>
+            </tr>
+            <tr>
+              <td><strong>Familia y red cercana</strong></td>
+              <td>Apoyo emocional, cotidiano y logística familiar</td>
+              <td>Familia en casa y círculo cercano / Presencial y teléfono</td>
+              <td>Dedicar tiempo de calidad, apoyar en tareas compartidas y comunicar con honestidad mis etapas de carga laboral.</td>
+            </tr>
+            <tr>
+              <td><strong>Pareja y amistades cercanas</strong></td>
+              <td>Acompañamiento, equilibrio y vida personal</td>
+              <td>Pareja y amistades de confianza / Presencial y mensajes</td>
+              <td>Cuidar espacios compartidos libres de pendientes laborales y cultivar escucha mutua y planes conjuntos.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. REFLEXIÓN FINAL DEL CURSO -->
+    <section id="reflexion" class="section-card" aria-labelledby="titulo-reflexion">
+      <h2 id="titulo-reflexion">4. Reflexión Final del Curso</h2>
+
+      <div class="reflection-text">
+        <p>
+          A lo largo del curso he podido ver cómo el diseño cobra más fuerza cuando se piensa desde la interacción real
+          con las personas: no basta con que algo se vea bien en una pantalla estática, sino que debe responder,
+          adaptarse, comunicar con claridad y funcionar sin fricciones en distintos contextos y dispositivos. Trabajar en
+          estas actividades me permitió conectar conceptos de estructura, diseño adaptable, comportamiento dinámico,
+          multimedia y accesibilidad con una mentalidad práctica de prueba, depuración y mejora continua.
+        </p>
+        <p>
+          Más allá de las herramientas o del código y el diseño en sí, este proceso me deja una lección valiosa sobre
+          paciencia y método: cuando algo falla o no se muestra como esperabas, revisar paso a paso, verificar rutas,
+          nombres y estados, y mantener el orden hace toda la diferencia. Llevo conmigo una base más sólida para
+          integrar lo visual con lo técnico en mis futuros proyectos, tanto en el cierre de mi carrera como en los pasos
+          que vienen en mi vida profesional y personal.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Plan de Vida — Evidencia Final de Curso</p>
+    </div>
+  </footer>
+</body>
+</html>
